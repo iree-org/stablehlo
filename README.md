@@ -1,4 +1,4 @@
-# IREE llvm-project fork
+# IREE stablehlo fork
 
 This repository contains branches for various forks of LLVM in support
 of the [IREE](https://github.com/google/iree) project. This default
