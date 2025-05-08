@@ -281,7 +281,7 @@ struct StablehloCompatibilityExpanderPass
   LogicalResult initialize(MLIRContext *context) override {
     auto targetVersion = validateTargetVersion(targetVersionOption);
 
-    config.useTopDownTraversal = true;
+    config.setUseTopDownTraversal();
     RewritePatternSet patterns_(context);
     populateStablehloCompatibilityExpanderPatterns(&patterns_, context,
                                                    targetVersion);
@@ -294,7 +294,7 @@ struct StablehloCompatibilityExpanderPass
     if (failed(applyPatternsGreedily(func, patterns, config))) {
       func.emitError(
           "Failed to converge StableHLOCompatibilityExpanderPass in ")
-          << config.maxIterations << " iterations";
+          << config.getMaxIterations() << " iterations";
       signalPassFailure();
     }
   }

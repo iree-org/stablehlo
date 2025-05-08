@@ -1025,11 +1025,11 @@ LogicalResult applyShapeRefinementPatterns(func::FuncOp func,
   // TODO(#1048): Find out why .maxIterations = 1 no longer works.
   // There have been recent refactors to applyPatternsGreedily
   // upstream, and that might be the reason.
-  config.useTopDownTraversal = true;
-  config.enableRegionSimplification = GreedySimplifyRegionLevel::Aggressive;
-  config.maxIterations = 2;
-  config.maxNumRewrites = GreedyRewriteConfig::kNoLimit;
-  config.strictMode = GreedyRewriteStrictness::AnyOp;
+  config.setUseTopDownTraversal()
+      .setRegionSimplificationLevel(GreedySimplifyRegionLevel::Aggressive)
+      .setMaxIterations(2)
+      .setMaxNumRewrites(GreedyRewriteConfig::kNoLimit)
+      .setStrictness(GreedyRewriteStrictness::AnyOp);
 
   populateStablehloRefineShapesPatterns(&patterns, context);
   patterns.add<RefineCallOpPattern>(context, state);
@@ -1045,7 +1045,7 @@ LogicalResult applyShapeRefinementPatterns(func::FuncOp func,
 
   if (failed(applyPatternsGreedily(func, std::move(patterns), config)))
     func.emitError("Failed to converge StablehloRefineShapes in ")
-        << config.maxIterations << " iterations";
+        << config.getMaxIterations() << " iterations";
 
   return success();
 }

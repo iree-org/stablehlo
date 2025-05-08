@@ -111,7 +111,7 @@ class StablehloLegalizeQDQToQuantizedOpPass
     if (failed(applyPatternsGreedily(func, patterns, config))) {
       func.emitError(
           "Failed to converge StablehloLegalizeQDQToQuantizedOpPass in ")
-          << config.maxIterations << " iterations";
+          << config.getMaxIterations() << " iterations";
       signalPassFailure();
     }
   }
