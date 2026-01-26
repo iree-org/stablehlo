@@ -43,10 +43,6 @@ endif()
 # Options and settings
 #-------------------------------------------------------------------------------
 
-# Disable PCH for StableHLO - uses different C++ standard flags (-std=gnu++17)
-# which are incompatible with LLVM's PCH built with -std=c++17
-set(CMAKE_DISABLE_PRECOMPILE_HEADERS ON)
-
 option(STABLEHLO_BUILD_EMBEDDED "Build StableHLO as part of another project" OFF)
 option(STABLEHLO_ENABLE_BINDINGS_PYTHON "Enables StableHLO Python bindings" OFF)
 option(STABLEHLO_ENABLE_PYTHON_TF_TESTS "Enables StableHLO to SavedModel tests requiring TF" OFF)
