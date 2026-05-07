@@ -539,8 +539,8 @@ Tensor makeTensor(DenseElementsAttr attr) {
     auto complexElemTy = cast<ComplexType>(elementType).getElementType();
     if (complexElemTy.isF32()) {
       auto complexValues = llvm::map_to_vector(
-          attr.getValues<std::complex<APFloat>>(),
-          [&](std::complex<APFloat> value) -> std::complex<float> {
+          attr.getValues<mlir::Complex<APFloat>>(),
+          [&](mlir::Complex<APFloat> value) -> std::complex<float> {
             return std::complex<float>(value.real().convertToFloat(),
                                        value.imag().convertToFloat());
           });
@@ -551,8 +551,8 @@ Tensor makeTensor(DenseElementsAttr attr) {
     }
     if (complexElemTy.isF64()) {
       auto complexValues = llvm::map_to_vector(
-          attr.getValues<std::complex<APFloat>>(),
-          [&](std::complex<APFloat> value) -> std::complex<double> {
+          attr.getValues<mlir::Complex<APFloat>>(),
+          [&](mlir::Complex<APFloat> value) -> std::complex<double> {
             return std::complex<double>(value.real().convertToDouble(),
                                         value.imag().convertToDouble());
           });
